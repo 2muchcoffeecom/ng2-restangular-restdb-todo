@@ -2,3 +2,9 @@
     {{title}}
 </h1>
 <input><button>Add</button>
+<ul *ngIf="database">
+    <li *ngFor="let item of database">
+        <p>id:{{item.idnum}} | completed: {{item.state}}</p>
+        <p>title:{{item.title}}</p>
+    </li>
+</ul>
