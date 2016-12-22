@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core'
 import {Restangular} from "ng2-restangular";
+import {Todo} from "../core/todo";
 
 @Injectable()
 export class RestService {
@@ -11,8 +12,12 @@ export class RestService {
         let list = this.restangular.one("list");
         return list.get();
     }
-    postTodo(node: Node) {
-        let list = this.restangular.one("list");
-        return list.post(list, JSON.stringify(node));
+
+    addTodo(todo: Todo) {
+        return this.restangular.all("list").post(todo);
+    }
+
+    removeTodo(todo) {
+        return todo.remove();
     }
 }

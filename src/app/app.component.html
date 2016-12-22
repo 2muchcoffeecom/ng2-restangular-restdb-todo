@@ -1,10 +1,14 @@
 <h1>
     {{title}}
 </h1>
-<input><button>Add</button>
+<input type=text name="todo" id="todo" [(ngModel)]="todoTitle">
+<button *ngIf="!edit" (click)="addTodo()">Add</button>
+<button *ngIf="edit" (click)="saveTodo()">Save</button>
 <ul *ngIf="database">
-    <li *ngFor="let item of database">
-        <p>id:{{item.idnum}} | completed: {{item.state}}</p>
-        <p>title:{{item.title}}</p>
+    <li *ngFor="let todo of database">
+        <p>completed: {{todo.completed}}</p>
+        <p>title:{{todo._title}}</p>
+        <a href="#" (click)="removeTodo(todo)">Delete</a>
+        <a href="#" (click)="editTodo(todo)">Edit</a>
     </li>
 </ul>

@@ -18,7 +18,10 @@ import {RestService} from "./services/rest.service";
         RestangularModule.forRoot((RestangularProvider) => {
                 RestangularProvider.setBaseUrl('https://todos-d479.restdb.io/rest/');
                 RestangularProvider.setDefaultRequestParams({
-                    apikey: 'ebe4bcdc424c1e9e032eb3b0ed06b05b66aed'
+                    apikey: '585a543ccdc9f08103309c29'
+                });
+                RestangularProvider.setRestangularFields({
+                    id: "_id"
                 });
             }
         ),
