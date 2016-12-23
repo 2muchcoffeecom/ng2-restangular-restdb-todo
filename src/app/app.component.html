@@ -1,13 +1,16 @@
 <h1>
     {{title}}
 </h1>
-<input type=text name="todo" id="todo" [(ngModel)]="todoTitle">
+<input type=text name="todo" id="todo" placeholder="What needs to be done?"
+       [(ngModel)]="todoTitle">
 <button *ngIf="!edit" (click)="addTodo()">Add</button>
-<button *ngIf="edit" (click)="saveTodo()">Save</button>
-<ul *ngIf="database">
-    <li *ngFor="let todo of database">
-        <p>completed: {{todo.completed}}</p>
-        <p>title:{{todo._title}}</p>
+<button *ngIf="edit" (click)="saveTodoTitile()">Save</button>
+<ul *ngIf="todoList">
+    <li *ngFor="let todo of todoList">
+        <input type="checkbox"
+               [(ngModel)]="todo.completed"
+               (click)="saveTodo(todo)">
+        <span (dblclick)="editTodo(todo)">{{todo.title}}</span><br>
         <a href="#" (click)="removeTodo(todo)">Delete</a>
         <a href="#" (click)="editTodo(todo)">Edit</a>
     </li>

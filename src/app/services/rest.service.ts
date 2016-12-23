@@ -9,11 +9,11 @@ export class RestService {
 
     //methods
     getTodoList() {
-        let list = this.restangular.one("list");
-        return list.get();
+        let list = this.restangular.all("list").getList();
+        return list;
     }
 
-    addTodo(todo: Todo) {
+    addTodo(todo) {
         return this.restangular.all("list").post(todo);
     }
 

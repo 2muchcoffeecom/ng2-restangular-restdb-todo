@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {RestService} from "./services/rest.service";
 import {Todo} from "./core/todo";
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-root',
@@ -8,28 +9,31 @@ import {Todo} from "./core/todo";
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    todoTitle: string;
     title = 'My todo list';
-    database: Todo[];
+    todoTitle: string;
     edit: boolean = false;
 
-    constructor(private restService: RestService) {
+    public todoList;
+    private _editTodo;
+
+    constructor(
+        private restService: RestService,
+    ) {
     }
 
     ngOnInit() {
         this.restService.getTodoList().subscribe(res => {
-            this.database = res;
-            //debugger;
+            this.todoList = res;
         }, err => {
             console.log(err);
         });
     }
 
     addTodo() {
-        let todo: Todo = new Todo(this.todoTitle);
+        let todo: Todo = new Todo(this.todoTitle); //!
         this.restService.addTodo(todo).subscribe(
             (res) => {
-                this.database.push(todo);
+                this.todoList.push(res);
             },
             (err) => {
                 console.log(err)
@@ -38,25 +42,42 @@ export class AppComponent {
     }
 
     removeTodo(todo): void {
-        console.log('click Delete');
-        this.restService.removeTodo(todo);
-    }
-
-    editTodo(todo: Todo): void {
-        this.edit = true;
-        this.todoTitle = todo._title;
-        //debugger;
-        console.log('click Edit');
-    }
-
-    saveTodo(todo: Todo) {
-        this.restService.saveTodo(todo).subscribe(
+        this.restService.removeTodo(todo).subscribe(
             (res) => {
+                _.remove(this.todoList, {_id: res.result[0]});
+            },
+            (err) => {
+                console.log(err)
+            }
+        );
+    }
 
+    editTodo(todo): void {
+        this.edit = true;
+        this._editTodo = todo;
+        this.todoTitle = todo.title;
+    }
+
+    saveTodo(_editTodo) {
+        //this._editTodo.title = this.todoTitle;
+        //debugger;
+        _editTodo.save().subscribe(
+            (res) => {
+                console.log(res);
             },
             (err) => {
                 console.log(err);
             }
         );
+        //this.edit = false;
+        //this._editTodo = null;
+        //debugger;
+    }
+    saveTodoTitile() {
+        this._editTodo.title = this.todoTitle;
+        this.saveTodo(this._editTodo);
+        this.edit = false;
+        this._editTodo = null;
+        this.todoTitle = "";
     }
 }

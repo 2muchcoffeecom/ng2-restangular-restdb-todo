@@ -1,17 +1,17 @@
 export class Todo {
     completed: boolean;
-    /*private*/ _title: string;
+    title: string;
     //
     // get title(): string {
-    //     return this._title;
+    //     return this.title;
     // }
     // set title(value: string) {
-    //     this._title = value;
+    //     this.title = value;
     // }
 
     constructor(title: string) {
         this.completed = false;
-        this._title = title;
+        this.title = title;
     }
 }
 
