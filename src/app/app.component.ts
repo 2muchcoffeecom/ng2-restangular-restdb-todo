@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
 import {RestService} from "./services/rest.service";
-import {Todo} from "./core/todo";
+import {TodoModel} from "./models/todo.model";
 import * as _ from 'lodash';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    styleUrls: ['app.component.scss']
 })
 export class AppComponent {
     title = 'My todo list';
@@ -30,7 +30,7 @@ export class AppComponent {
     }
 
     addTodo() {
-        let todo: Todo = new Todo(this.todoTitle); //!
+        let todo: TodoModel = new TodoModel(this.todoTitle); //!
         this.restService.addTodo(todo).subscribe(
             (res) => {
                 this.todoList.push(res);
