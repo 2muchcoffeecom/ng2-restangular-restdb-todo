@@ -9,16 +9,20 @@ import * as _ from 'lodash';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+    lodash: any;
     title = 'My todo list';
-    todoTitle: string;
     edit: boolean = false;
 
     public todoList;
-    private _editTodo;
+    private _editTodo = {
+        title: "",
+        completed: false
+    };
 
     constructor(
         private restService: RestService,
     ) {
+        this.lodash = _;
     }
 
     ngOnInit() {
@@ -30,7 +34,7 @@ export class AppComponent {
     }
 
     addTodo() {
-        let todo: TodoModel = new TodoModel(this.todoTitle); //!
+        let todo: TodoModel = new TodoModel(this._editTodo.title); //!
         this.restService.addTodo(todo).subscribe(
             (res) => {
                 this.todoList.push(res);
@@ -39,6 +43,7 @@ export class AppComponent {
                 console.log(err)
             }
         );
+        this._editTodo.title = "";
     }
 
     removeTodo(todo): void {
@@ -52,16 +57,14 @@ export class AppComponent {
         );
     }
 
+
     editTodo(todo): void {
         this.edit = true;
-        this._editTodo = todo;
-        this.todoTitle = todo.title;
+        this._editTodo = this.lodash.cloneDeep(todo);
     }
 
-    saveTodo(_editTodo) {
-        //this._editTodo.title = this.todoTitle;
-        //debugger;
-        _editTodo.save().subscribe(
+    saveTodo(todo) {
+        todo.put().subscribe(
             (res) => {
                 console.log(res);
             },
@@ -69,15 +72,14 @@ export class AppComponent {
                 console.log(err);
             }
         );
-        //this.edit = false;
-        //this._editTodo = null;
-        //debugger;
     }
-    saveTodoTitile() {
-        this._editTodo.title = this.todoTitle;
+
+    saveTodoTittle() {
         this.saveTodo(this._editTodo);
         this.edit = false;
-        this._editTodo = null;
-        this.todoTitle = "";
+        this._editTodo = {
+            title: "",
+            completed: false
+        };
     }
 }

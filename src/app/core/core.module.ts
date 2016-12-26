@@ -21,8 +21,7 @@ export function restangular (RestangularProvider) {
     imports: [
         BrowserModule,
         HttpModule,
-        RestangularModule.forRoot( restangular
-        ),
+        RestangularModule.forRoot(restangular),
     ],
     providers: [RestService],
 })
