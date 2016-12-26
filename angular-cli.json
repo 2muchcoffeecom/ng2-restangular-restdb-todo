@@ -19,7 +19,7 @@
       "mobile": false,
       "styles": [
         "styles.scss",
-        "../node_modules/materialize-css/dist/css/materialize.css",
+        "../node_modules/materialize-css/dist/css/materialize.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",

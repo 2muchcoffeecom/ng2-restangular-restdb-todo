@@ -11,7 +11,7 @@
                [(ngModel)]="todo.completed"
                (click)="saveTodo(todo)">
         <span (dblclick)="editTodo(todo)">{{todo.title}}</span><br>
-        <a href="#" (click)="removeTodo(todo)">Delete</a>
-        <a href="#" (click)="editTodo(todo)">Edit</a>
+        <a (click)="removeTodo(todo)" class="waves-effect waves-light btn">Delete</a>
+        <a (click)="editTodo(todo)" class="waves-effect waves-light btn">Edit</a>
     </li>
 </ul>

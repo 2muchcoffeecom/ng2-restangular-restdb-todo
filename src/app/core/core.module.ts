@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, Optional, SkipSelf} from '@angular/core';
-import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RestangularModule} from 'ng2-restangular';
 
@@ -21,7 +20,6 @@ export function restangular (RestangularProvider) {
     ],
     imports: [
         BrowserModule,
-        FormsModule,
         HttpModule,
         RestangularModule.forRoot( restangular
         ),
