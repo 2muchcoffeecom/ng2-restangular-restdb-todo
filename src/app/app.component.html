@@ -3,7 +3,7 @@
         {{title}}
     </h1>
     <input type=text name="todo" id="todo" placeholder="What needs to be done?"
-           [(ngModel)]="_editTodo.title">
+           [(ngModel)]="inputText">
     <button *ngIf="!edit" (click)="addTodo()" class="waves-effect waves-light btn">Add</button>
     <button *ngIf="edit" (click)="saveTodoTittle()" class="waves-effect waves-light btn">Save</button>
     <ul *ngIf="todoList">
@@ -13,16 +13,15 @@
                     <div class="card-content white-text">
                         <div class="switch">
                             <label>
-                                uncompleted
+                                Uncompleted
                                 <input type="checkbox"
-                                       [id]="todo._id"
                                        [(ngModel)]="todo.completed"
-                                       (click)="saveTodo(todo)">
+                                       (change)="changeCompleted(todo)">
                                 <span class="lever"></span>
-                                completed
+                                Completed
                             </label>
                         </div>
-                        <span (dblclick)="editTodo(todo)">{{todo.title}}</span><br>
+                        <span (dblclick)="editTodo(todo)">{{todo.title}}</span>
                         <div class="card-action">
                             <a (click)="removeTodo(todo)" class="waves-effect waves-light btn">Delete</a>
                             <a (click)="editTodo(todo)" class="waves-effect waves-light btn">Edit</a>

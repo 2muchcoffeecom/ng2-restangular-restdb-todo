@@ -2,9 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {HttpModule} from '@angular/http';
 import {RestangularModule} from 'ng2-restangular';
-
 import {RestService} from "../services/rest.service";
-
 export function restangular (RestangularProvider) {
     RestangularProvider.setBaseUrl('https://todos-d479.restdb.io/rest/');
     RestangularProvider.setDefaultRequestParams({
@@ -14,14 +12,14 @@ export function restangular (RestangularProvider) {
         id: "_id"
     });
 }
-
 @NgModule({
     declarations: [
     ],
     imports: [
         BrowserModule,
         HttpModule,
-        RestangularModule.forRoot(restangular),
+        RestangularModule.forRoot( restangular
+        ),
     ],
     providers: [RestService],
 })
