@@ -1,14 +1,18 @@
 import {Component} from '@angular/core';
+
 import {RestService} from "./services/rest.service";
 import {TodoModel} from "./models/todo.model";
 import {TITLE} from "./share/const"
+
 import * as _ from 'lodash';
 import {Subject} from "rxjs";
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
     title = TITLE;
     inputText: string;
@@ -16,8 +20,10 @@ export class AppComponent {
     public todoList;
     private _editTodo;
     private changeStatus$ = new Subject();
+
     constructor(private restService: RestService,) {
     }
+
     ngOnInit() {
         this.restService.getTodoList().subscribe(
             (res) => {
@@ -31,6 +37,7 @@ export class AppComponent {
                 this.saveTodo(todo);
             })
     }
+
     addTodo() {
         let todo: TodoModel = new TodoModel(this.inputText); //!
         this.restService.addTodo(todo).subscribe(
@@ -43,6 +50,7 @@ export class AppComponent {
         );
         this.inputText = "";
     }
+
     removeTodo(todo): void {
         this.restService.removeTodo(todo).subscribe(
             (res) => {
@@ -53,11 +61,13 @@ export class AppComponent {
             }
         );
     }
+
     editTodo(todo): void {
         this.edit = true;
         this._editTodo = todo;
         this.inputText = todo.title;
     }
+
     saveTodo(editTodo) {
         editTodo.put().subscribe(
             (res) => {
@@ -67,9 +77,11 @@ export class AppComponent {
             }
         );
     }
+
     changeCompleted(todo) {
         this.changeStatus$.next(todo);
     }
+
     saveTodoTittle() {
         this._editTodo.title = this.inputText;
         this.saveTodo(this._editTodo);

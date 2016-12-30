@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import {Restangular} from "ng2-restangular";
-import {TodoModel} from "../models/todo.model";
+
 @Injectable()
 export class RestService {
     constructor(private restangular: Restangular) {}
